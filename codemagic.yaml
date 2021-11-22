@@ -2,7 +2,7 @@ workflows:
   create-macOS-iso:
     name: Create macOS ISO File
     instance_type: mac_mini
-    max_build_duration: 45
+    max_build_duration: 50
     scripts:
       - name: Downloading macOS Monterey 12.1 Beta 3
         script: wget http://swcdn.apple.com/content/downloads/37/57/002-32829-A_CROLZDW2FH/8uyjhtsfmpocyticgxh9s38iv8zia95jbb/InstallAssistant.pkg
