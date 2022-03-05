@@ -4,21 +4,22 @@ workflows:
     instance_type: mac_mini
     max_build_duration: 90
     scripts:
-      - name: Downloading macOS Monterey 12.1
-        script: wget http://swcdn.apple.com/content/downloads/06/34/002-42435-A_MA7OBDUK86/6xzypeod1xebasc92qkw2iv44e1j9pv09f/InstallAssistant.pkg
-      - name: Installing macOS Monterey 12.1 pkg File
+      - name: Downloading macOS Monterey 12.3 Beta 5
+        script: wget http://swcdn.apple.com/content/downloads/60/10/002-74572-A_VK6FJR4MX7/tx7zcpa09rhrwl26wfgm58ps4ochtrohn5/InstallAssistant.pkg
+      - name: Installing macOS Monterey 12.3 Beta 5 pkg File
         script: sudo installer -allowUntrusted -verboseR -pkg InstallAssistant.pkg -target /
-      - name: Create macOS Monterey 12.1 Installer ISO File
+      - name: Create macOS Monterey 12.3 Beta 5 Installer ISO File
         script: |
           hdiutil create -o /tmp/Monterey -size 16384m -volname Monterey -layout SPUD -fs HFS+J
           hdiutil attach /tmp/Monterey.dmg -noverify -mountpoint /Volumes/Monterey
-          sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Monterey
+          sudo /Applications/Install\ macOS\ Monterey\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Monterey --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Monterey\ beta
           hdiutil convert /tmp/Monterey.dmg -format UDTO -o ~/Desktop/Monterey
-          mv -v ~/Desktop/Monterey.cdr ~/Desktop/Monterey12.1.iso         
+          mv -v ~/Desktop/Monterey.cdr ~/Desktop/Monterey12.3-Beta5.iso         
     artifacts:
-      - ~/Desktop/Monterey12.1.iso
+      - ~/Desktop/Monterey12.3-Beta5.iso
     publishing:
       email:
         recipients:
+          - baneeishaque@gmail.com
           - baneeishaque@hotmail.com
