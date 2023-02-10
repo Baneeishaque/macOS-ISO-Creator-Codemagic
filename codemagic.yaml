@@ -1,7 +1,7 @@
 workflows:
   create-macOS-iso:
     name: Create macOS ISO File
-    instance_type: mac_mini
+    instance_type: mac_mini_m1
     max_build_duration: 90
     scripts:
       - name: Downloading macOS Ventura 13.2
