@@ -27,6 +27,8 @@ workflows:
           hdiutil attach MEGAcmdSetup.dmg
           sudo cp -rf /Volumes/MEGAcmd.app /Applications
           sudo hdiutil detach /Volumes/MEGAcmd.app
+      - name: Login to MEGA
+        script: mega-login USERNAME PASSWORD
     # artifacts:
     #   - ~/Desktop/Ventura_13.3-Beta.*
     publishing:
