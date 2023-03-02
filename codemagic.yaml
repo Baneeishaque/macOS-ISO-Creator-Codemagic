@@ -28,7 +28,7 @@ workflows:
           sudo cp -rf /Volumes/MEGAcmd/MEGAcmd.app /Applications
           sudo hdiutil detach /Volumes/MEGAcmd
       - name: Login to MEGA
-        script: mega-login USERNAME PASSWORD
+        script: /Applications/MEGAcmd.app/Contents/MacOS/mega-login USERNAME PASSWORD
     # artifacts:
     #   - ~/Desktop/Ventura_13.3-Beta/
     publishing:
