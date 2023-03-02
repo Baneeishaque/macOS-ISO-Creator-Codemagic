@@ -32,9 +32,10 @@ workflows:
       #     export PATH="/Applications/MEGAcmd.app/Contents/MacOS:$PATH"
       #     mega-login $MEGA_USERNAME "$MEGA_PASSWORD"
       - name: Install Megatools
-        script: brew install megacmd
+        script: brew install megatools
       - name: Upload Ventura_13.3-Beta folder to MEGA
         script: |
+          mkdir test
           echo "test" > test/test.txt
           megatools copy --local test --remote Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
     # artifacts:
