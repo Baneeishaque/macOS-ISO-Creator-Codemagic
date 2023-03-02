@@ -25,8 +25,8 @@ workflows:
       - name: Install MEGA CMD
         script: |
           hdiutil attach MEGAcmdSetup.dmg
-          sudo cp -rf /Volumes/MEGAcmd.app /Applications
-          sudo hdiutil detach /Volumes/MEGAcmd.app
+          sudo cp -rf /Volumes/MEGAcmd/MEGAcmd.app /Applications
+          sudo hdiutil detach /Volumes/MEGAcmd
       - name: Login to MEGA
         script: mega-login USERNAME PASSWORD
     # artifacts:
