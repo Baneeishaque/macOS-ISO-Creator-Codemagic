@@ -19,7 +19,7 @@ workflows:
       - name: Installing 7zip
         script: brew install sevenzip
       - name: Compressing Ventura_13.3-Beta.iso file
-        script: 7z a -t7z -mx=9 -mt=4 -v4.5g Ventura_13.3-Beta.7z Ventura_13.3-Beta.iso
+        script: 7z a -t7z -mx=9 -mt=4 -v4.5g -sdel ~/Desktop/Ventura_13.3-Beta.7z ~/Desktop/Ventura_13.3-Beta.iso
     artifacts:
       - ~/Desktop/Ventura_13.3-Beta.*
     publishing:
