@@ -1,5 +1,8 @@
 workflows:
   create-macOS-iso:
+    environment:
+      groups:
+        - MEGA Credentials
     name: Create macOS ISO File
     instance_type: mac_mini_m1
     max_build_duration: 90
