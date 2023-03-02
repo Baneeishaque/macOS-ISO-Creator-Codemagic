@@ -20,17 +20,23 @@ workflows:
       #   script: brew install sevenzip
       # - name: Compressing Ventura_13.3-Beta.iso file
       #   script: 7z a -t7z -mx=9 -v4750m ~/Desktop/Ventura_13.3-Beta/Ventura_13.3-Beta.7z ~/Desktop/Ventura_13.3-Beta.iso
-      - name: Get MEGA CMD
-        script: wget https://mega.nz/MEGAcmdSetup.dmg
-      - name: Install MEGA CMD
+      # - name: Get MEGA CMD
+      #   script: wget https://mega.nz/MEGAcmdSetup.dmg
+      # - name: Install MEGA CMD
+      #   script: |
+      #     hdiutil attach MEGAcmdSetup.dmg
+      #     sudo cp -rf /Volumes/MEGAcmd/MEGAcmd.app /Applications
+      #     sudo hdiutil detach /Volumes/MEGAcmd
+      # - name: Login to MEGA
+      #   script: |
+      #     export PATH="/Applications/MEGAcmd.app/Contents/MacOS:$PATH"
+      #     mega-login $MEGA_USERNAME "$MEGA_PASSWORD"
+      - name: Install Megatools
+        script: brew install megacmd
+      - name: Upload Ventura_13.3-Beta folder to MEGA
         script: |
-          hdiutil attach MEGAcmdSetup.dmg
-          sudo cp -rf /Volumes/MEGAcmd/MEGAcmd.app /Applications
-          sudo hdiutil detach /Volumes/MEGAcmd
-      - name: Login to MEGA
-        script: |
-          export PATH="/Applications/MEGAcmd.app/Contents/MacOS:$PATH"
-          mega-login $MEGA_USERNAME "$MEGA_PASSWORD"
+          echo "test" > test/test.txt
+          megatools copy --local test --remote Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
     # artifacts:
     #   - ~/Desktop/Ventura_13.3-Beta/
     publishing:
