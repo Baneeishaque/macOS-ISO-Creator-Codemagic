@@ -17,9 +17,9 @@ workflows:
           hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
           mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura_13.3-Beta.iso
           brew install sevenzip
-          7z a -t7z -mx=9 -mt=4 Ventura_13.3-Beta.7z Ventura_13.3-Beta.iso
+          7z a -t7z -mx=9 -mt=4 -v4.5g Ventura_13.3-Beta.7z Ventura_13.3-Beta.iso
     artifacts:
-      - ~/Desktop/Ventura_13.3-Beta.7z
+      - ~/Desktop/Ventura_13.3-Beta.*
     publishing:
       email:
         recipients:
