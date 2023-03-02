@@ -16,8 +16,10 @@ workflows:
           hdiutil eject -force /Volumes/Install\ macOS\ Ventura\ beta
           hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
           mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura_13.3-Beta.iso
-          brew install sevenzip
-          7z a -t7z -mx=9 -mt=4 -v4.5g Ventura_13.3-Beta.7z Ventura_13.3-Beta.iso
+      - name: Installing 7zip
+        script: brew install sevenzip
+      - name: Compressing Ventura_13.3-Beta.iso file
+        script: 7z a -t7z -mx=9 -mt=4 -v4.5g Ventura_13.3-Beta.7z Ventura_13.3-Beta.iso
     artifacts:
       - ~/Desktop/Ventura_13.3-Beta.*
     publishing:
