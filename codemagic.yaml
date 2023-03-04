@@ -26,7 +26,7 @@ workflows:
       - name: Install Megatools
         script: brew install megatools
       - name: Upload Ventura_13.3-Beta folder to MEGA
-        script: megatools copy --local ~/Desktop/Ventura_13.3-Beta --remote Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+        script: megatools copy --local ~/Desktop/Ventura_13.3-Beta --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
     publishing:
       email:
         recipients:
