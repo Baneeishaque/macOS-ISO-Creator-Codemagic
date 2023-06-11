@@ -30,8 +30,5 @@ steps:
 # - script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
 #   displayName: 'Upload Sonoma_14-Beta-1 folder to MEGA'
 
-- script: echo '*.iso' > ~/Desktop/Sonoma_14-Beta-1/.artifactignore
-  displayName: 'Writing .artifactignore file'
-
 - publish: ~/Desktop/Sonoma_14-Beta-1
   artifact: 'macOS Sonoma 14 Beta 1'
