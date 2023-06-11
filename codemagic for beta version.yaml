@@ -1,0 +1,34 @@
+workflows:
+  create-macOS-iso:
+    environment:
+      groups:
+        - MEGA Credentials
+    name: Create macOS ISO File
+    instance_type: mac_mini_m1
+    max_build_duration: 90
+    scripts:
+      - name: Downloading macOS Ventura 13.3 Beta 3
+        script: wget https://swcdn.apple.com/content/downloads/37/00/032-60407-A_VG7U938OV3/zl6kxredoi8l0mhx3jw10hmgnjm3pl4gyz/InstallAssistant.pkg
+      - name: Installing macOS Ventura 13.3 Beta 3 pkg File
+        script: sudo installer -allowUntrusted -verboseR -pkg InstallAssistant.pkg -target /
+      - name: Create macOS Ventura 13.3 Beta 3 Installer ISO File
+        script: |
+          hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
+          hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
+          sudo /Applications/Install\ macOS\ Ventura\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Ventura\ beta
+          hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
+          mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura_13.3-Beta3.iso
+      - name: Installing 7zip
+        script: brew install sevenzip
+      - name: Compressing Ventura_13.3-Beta3.iso file
+        script: 7z a -t7z -mx=9 -v4750m ~/Desktop/Ventura_13.3-Beta3/Ventura_13.3-Beta3.7z ~/Desktop/Ventura_13.3-Beta3.iso
+      - name: Install Megatools
+        script: brew install megatools
+      - name: Upload Ventura_13.3-Beta3 folder to MEGA
+        script: megatools copy --local ~/Desktop/Ventura_13.3-Beta3 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+    publishing:
+      email:
+        recipients:
+          - baneeishaque@gmail.com
+          - baneeishaque@hotmail.com

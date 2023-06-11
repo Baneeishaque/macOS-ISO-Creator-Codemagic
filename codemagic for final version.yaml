@@ -1,0 +1,25 @@
+workflows:
+  create-macOS-iso:
+    name: Create macOS ISO File
+    instance_type: mac_mini_m1
+    max_build_duration: 90
+    scripts:
+      - name: Downloading macOS Ventura 13.2.1
+        script: wget https://swcdn.apple.com/content/downloads/26/15/032-48342-A_OG2YEE7OSX/8sd3qpy79cimb7cjiy47cytps0gm7m0z5l/InstallAssistant.pkg
+      - name: Installing macOS Ventura 13.2.1 pkg File
+        script: sudo installer -allowUntrusted -verboseR -pkg InstallAssistant.pkg -target /
+      - name: Create macOS Ventura 13.2.1 Installer ISO File
+        script: |
+          hdiutil create -o /tmp/Ventura -size 16384m -volname Ventura -layout SPUD -fs HFS+J
+          hdiutil attach /tmp/Ventura.dmg -noverify -mountpoint /Volumes/Ventura
+          sudo /Applications/Install\ macOS\ Ventura.app/Contents/Resources/createinstallmedia --volume /Volumes/Ventura --nointeraction
+          hdiutil eject -force /Volumes/Install\ macOS\ Ventura
+          hdiutil convert /tmp/Ventura.dmg -format UDTO -o ~/Desktop/Ventura
+          mv -v ~/Desktop/Ventura.cdr ~/Desktop/Ventura_13.2.1.iso
+    artifacts:
+      - ~/Desktop/Ventura_13.2.1.iso
+    publishing:
+      email:
+        recipients:
+          - baneeishaque@gmail.com
+          - baneeishaque@hotmail.com
