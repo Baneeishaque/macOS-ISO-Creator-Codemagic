@@ -1,0 +1,38 @@
+trigger: none
+
+pool:
+  vmImage: 'macOS-latest'
+
+steps:
+- script: wget https://swcdn.apple.com/content/downloads/23/44/032-94352-A_DB05J15QWT/4x91v0yzolyiat5cat76ieu0h78aeu3d03/InstallAssistant.pkg
+  displayName: 'Downloading macOS Sonoma 14 Beta 1'
+
+- script: sudo installer -allowUntrusted -verboseR -pkg InstallAssistant.pkg -target /
+  displayName: 'Installing macOS Sonoma 14 Beta 1 pkg File'
+
+- script: |
+    hdiutil create -o /tmp/Sonoma -size 13312m -volname Sonoma -layout SPUD -fs HFS+J
+    hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
+    sudo /Applications/Install\ macOS\ Sonoma\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
+    hdiutil eject -force /Volumes/Install\ macOS\ Sonoma\ beta
+    hdiutil convert /tmp/Sonoma.dmg -format UDTO -o ~/Desktop/Sonoma
+    mv -v ~/Desktop/Sonoma.cdr ~/Desktop/Sonoma_14-Beta-1.iso
+  displayName: 'Create macOS Sonoma 14 Beta 1 Installer ISO File'
+
+- script: brew install sevenzip
+  displayName: 'Installing 7zip'
+
+- script: 7z a -t7z -mx=9 -v4750m ~/Desktop/Sonoma_14-Beta-1/Sonoma_14-Beta-1.7z ~/Desktop/Sonoma_14-Beta-1.iso
+  displayName: 'Compressing Sonoma_14-Beta-1.iso file'
+
+- script: brew install megatools
+  displayName: 'Install Megatools'
+
+- script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+  displayName: 'Upload Sonoma_14-Beta-1 folder to MEGA'
+
+- script: echo '*.iso' > ~/Desktop/Sonoma_14-Beta-1/.artifactignore
+  displayName: 'Writing .artifactignore file'
+
+- publish: ~/Desktop/Sonoma_14-Beta-1
+  artifact: 'macOS Sonoma 14 Beta 1'
