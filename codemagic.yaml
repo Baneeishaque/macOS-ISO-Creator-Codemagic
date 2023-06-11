@@ -13,11 +13,9 @@ workflows:
         script: sudo installer -allowUntrusted -verboseR -pkg InstallAssistant.pkg -target /
       - name: Create macOS Sonoma 14 Beta 1 Installer ISO File
         script: |
-          hdiutil create -o /tmp/Sonoma -size 16384m -volname Sonoma -layout SPUD -fs HFS+J
-          hdiutil attach /tmp/Sonoma.dmg -noverify -mountpoint /Volumes/Sonoma
-          sudo /Applications/Install\ macOS\ Sonoma\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
-          hdiutil eject -force /Volumes/Install\ macOS\ Sonoma\ beta
-          hdiutil convert /tmp/Sonoma.dmg -format UDTO -o ~/Desktop/Sonoma
+          hdiutil create -o /tmp/Sonoma -size 14562m -volname Sonoma -layout SPUD -fs HFS+J -type UDTO -attach
+          sudo /Applications/Install\ macOS\ 14\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
+          hdiutil detach -force /Volumes/Install\ macOS\ 14\ beta
           mv -v ~/Desktop/Sonoma.cdr ~/Desktop/Sonoma_14-Beta-1.iso
       - name: Installing 7zip
         script: brew install sevenzip
