@@ -25,11 +25,11 @@ steps:
 - script: 7z a -t7z -mx=9 -v4750m ~/Desktop/Sonoma_14-Beta-1/Sonoma_14-Beta-1.7z ~/Desktop/Sonoma_14-Beta-1.iso
   displayName: 'Compressing Sonoma_14-Beta-1.iso file'
 
-- script: brew install megatools
-  displayName: 'Install Megatools'
+# - script: brew install megatools
+#   displayName: 'Install Megatools'
 
-- script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
-  displayName: 'Upload Sonoma_14-Beta-1 folder to MEGA'
+# - script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+#   displayName: 'Upload Sonoma_14-Beta-1 folder to MEGA'
 
 - script: echo '*.iso' > ~/Desktop/Sonoma_14-Beta-1/.artifactignore
   displayName: 'Writing .artifactignore file'
