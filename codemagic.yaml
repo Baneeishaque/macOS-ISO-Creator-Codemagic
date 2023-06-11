@@ -16,7 +16,7 @@ workflows:
           hdiutil create -o /tmp/Sonoma -size 14562m -volname Sonoma -layout SPUD -fs HFS+J -type UDTO -attach
           sudo /Applications/Install\ macOS\ 14\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
           hdiutil detach -force /Volumes/Install\ macOS\ 14\ beta
-          mv -v ~/Desktop/Sonoma.cdr ~/Desktop/Sonoma_14-Beta-1.iso
+          mv -v /tmp/Sonoma.cdr ~/Desktop/Sonoma_14-Beta-1.iso
       - name: Installing 7zip
         script: brew install sevenzip
       - name: Compressing Sonoma_14-Beta-1.iso file
