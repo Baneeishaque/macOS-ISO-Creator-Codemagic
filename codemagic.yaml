@@ -21,10 +21,10 @@ workflows:
         script: brew install sevenzip
       - name: Compressing Sonoma_14-Beta-1.iso file
         script: 7z a -t7z -mx=9 -v4750m ~/Desktop/Sonoma_14-Beta-1/Sonoma_14-Beta-1.7z ~/Desktop/Sonoma_14-Beta-1.iso
-      - name: Install Megatools
-        script: brew install megatools
-      - name: Upload Sonoma_14-Beta-1 folder to MEGA
-        script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+      # - name: Install Megatools
+      #   script: brew install megatools
+      # - name: Upload Sonoma_14-Beta-1 folder to MEGA
+      #   script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
     artifacts:
       - ~/Desktop/Sonoma_14-Beta-1/
     publishing:
