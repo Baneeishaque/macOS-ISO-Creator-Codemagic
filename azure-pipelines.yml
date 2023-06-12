@@ -17,9 +17,6 @@ steps:
     mv -v /tmp/Sonoma.cdr ~/Desktop/Sonoma_14-Beta-1.iso
   displayName: 'Create macOS Sonoma 14 Beta 1 Installer ISO File'
 
-# - script: brew install sevenzip
-#   displayName: 'Installing 7zip'
-
 - script: 7z a -t7z -mx=9 -v4750m ~/Desktop/Sonoma_14-Beta-1/Sonoma_14-Beta-1.7z ~/Desktop/Sonoma_14-Beta-1.iso
   displayName: 'Compressing Sonoma_14-Beta-1.iso file'
 
