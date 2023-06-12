@@ -25,6 +25,8 @@ workflows:
         script: brew install megatools
       - name: Upload Sonoma_14-Beta-1 folder to MEGA
         script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+    artifacts:
+      - ~/Desktop/Sonoma_14-Beta-1/
     publishing:
       email:
         recipients:
