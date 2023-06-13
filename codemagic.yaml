@@ -1,6 +1,8 @@
 workflows:
   create-macOS-iso:
     environment:
+      vars:
+        FOLDER_NAME: "Shared-Files"
       groups:
         - MEGA Credentials
     name: Create macOS ISO File
@@ -23,8 +25,14 @@ workflows:
         script: 7z a -t7z -mx=9 -v4750m ~/Desktop/Sonoma_14-Beta-1/Sonoma_14-Beta-1.7z ~/Desktop/Sonoma_14-Beta-1.iso
       - name: Install Megatools
         script: brew install megatools
+      - name: 'Mega : Check & Create (if not available) $FOLDER_NAME Folder'
+        script: |
+          megatools test -d /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+          IF ERRORLEVEL 1 (
+            megatools mkdir /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+          )
       - name: Upload Sonoma_14-Beta-1 folder to MEGA
-        script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/Shared-Files --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+        script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
     artifacts:
       - ~/Desktop/Sonoma_14-Beta-1/
     publishing:
