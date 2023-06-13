@@ -22,7 +22,7 @@ workflows:
       - name: Installing 7zip
         script: brew install sevenzip
       - name: Compressing Sonoma_14-Beta-1.iso file
-        script: 7z a -t7z -mx=9 -v4750m ~/Desktop/Sonoma_14-Beta-1/Sonoma_14-Beta-1.7z ~/Desktop/Sonoma_14-Beta-1.iso
+        script: 7z a -t7z -mx=1 -v4750m ~/Desktop/Sonoma_14-Beta-1/Sonoma_14-Beta-1.7z ~/Desktop/Sonoma_14-Beta-1.iso
       - name: Install Megatools
         script: brew install megatools
       - name: 'Mega : Check & Create (if not available) $FOLDER_NAME Folder'
