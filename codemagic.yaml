@@ -28,9 +28,7 @@ workflows:
       - name: 'Mega : Check & Create (if not available) $FOLDER_NAME Folder'
         script: |
           megatools test -d /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
-          IF ERRORLEVEL 1 (
-            megatools mkdir /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
-          )
+          test $? -eq 1 && megatools mkdir /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
       - name: Upload Sonoma_14-Beta-1 folder to MEGA
         script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
     artifacts:
