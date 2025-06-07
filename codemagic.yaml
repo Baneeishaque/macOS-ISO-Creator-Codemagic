@@ -9,30 +9,30 @@ workflows:
     instance_type: mac_mini_m1
     max_build_duration: 90
     scripts:
-      - name: Downloading macOS Sonoma 14 Beta 1
-        script: wget https://swcdn.apple.com/content/downloads/23/44/032-94352-A_DB05J15QWT/4x91v0yzolyiat5cat76ieu0h78aeu3d03/InstallAssistant.pkg
-      - name: Installing macOS Sonoma 14 Beta 1 pkg File
+      - name: Downloading macOS Sequoia 15.5
+        script: wget https://swcdn.apple.com/content/downloads/51/28/082-44432-A_4NJSZXK8G5/v10fo5dlwd50fja3qbnhj7z9tp1dx41vq2/InstallAssistant.pkg
+      - name: Installing macOS Sequoia 15.5 pkg File
         script: sudo installer -allowUntrusted -verboseR -pkg InstallAssistant.pkg -target /
-      - name: Create macOS Sonoma 14 Beta 1 Installer ISO File
+      - name: Create macOS Sequoia 15.5 Installer ISO File
         script: |
-          hdiutil create -o /tmp/Sonoma -size 14562m -volname Sonoma -layout SPUD -fs HFS+J -type UDTO -attach
-          sudo /Applications/Install\ macOS\ 14\ beta.app/Contents/Resources/createinstallmedia --volume /Volumes/Sonoma --nointeraction
-          hdiutil detach -force /Volumes/Install\ macOS\ 14\ beta
-          mv -v /tmp/Sonoma.cdr ~/Desktop/Sonoma_14-Beta-1.iso
+          hdiutil create -o /tmp/Sequoia -size 14562m -volname Sequoia -layout SPUD -fs HFS+J -type UDTO -attach
+          sudo /Applications/Install\ macOS\ Sequoia.app/Contents/Resources/createinstallmedia --volume /Volumes/Sequoia --nointeraction
+          hdiutil detach -force /Volumes/Install\ macOS\ Sequoia
+          mv -v /tmp/Sequoia.cdr ~/Desktop/Sequoia_15.5.iso
       - name: Installing 7zip
         script: brew install sevenzip
-      - name: Compressing Sonoma_14-Beta-1.iso file
-        script: 7z a -t7z -mx=1 -v4750m ~/Desktop/Sonoma_14-Beta-1/Sonoma_14-Beta-1.7z ~/Desktop/Sonoma_14-Beta-1.iso
+      - name: Compressing Sequoia_15.5.iso file
+        script: 7z a -t7z -mx=1 -v4750m ~/Desktop/Sequoia_15.5/Sequoia_15.5.7z ~/Desktop/Sequoia_15.5.iso
       - name: Install Megatools
         script: brew install megatools
       - name: 'Mega : Check & Create (if not available) $FOLDER_NAME Folder'
         script: |
           megatools test -d /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
           test $? -eq 1 && megatools mkdir /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
-      - name: Upload Sonoma_14-Beta-1 folder to MEGA
-        script: megatools copy --local ~/Desktop/Sonoma_14-Beta-1 --remote /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
+      - name: Upload Sequoia_15.5 folder to MEGA
+        script: megatools copy --local ~/Desktop/Sequoia_15.5 --remote /Root/$FOLDER_NAME --username $MEGA_USERNAME --password "$MEGA_PASSWORD"
     artifacts:
-      - ~/Desktop/Sonoma_14-Beta-1/
+      - ~/Desktop/Sequoia_15.5/
     publishing:
       email:
         recipients:
