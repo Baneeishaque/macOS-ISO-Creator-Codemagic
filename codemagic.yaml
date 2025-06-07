@@ -15,7 +15,7 @@ workflows:
         script: sudo installer -allowUntrusted -verboseR -pkg InstallAssistant.pkg -target /
       - name: Create macOS Sequoia 15.5 Installer ISO File
         script: |
-          hdiutil create -o /tmp/Sequoia -size 14562m -volname Sequoia -layout SPUD -fs HFS+J -type UDTO -attach
+          hdiutil create -o /tmp/Sequoia -size 17408m -volname Sequoia -layout SPUD -fs HFS+J -type UDTO -attach
           sudo /Applications/Install\ macOS\ Sequoia.app/Contents/Resources/createinstallmedia --volume /Volumes/Sequoia --nointeraction
           hdiutil detach -force /Volumes/Install\ macOS\ Sequoia
           mv -v /tmp/Sequoia.cdr ~/Desktop/Sequoia_15.5.iso
